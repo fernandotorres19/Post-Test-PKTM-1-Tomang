@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Literasi Digital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFF80; /* Kuning terang */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .header-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #FFD700; /* Kuning emas */
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #FFC000; /* Kuning lebih gelap saat hover */
+        }
+        .question-container {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .question-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #FFFACD; /* Lemon chiffon */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option:hover {
+            background-color: #FFE87C; /* Kuning lebih terang saat hover */
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .nav-btn {
+            width: 48%;
+        }
+        .title-screen {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .title-screen h1 {
+            color: #5D4037;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .thank-you {
+            text-align: center;
+            font-size: 20px;
+            color: #388E3C;
+            display: none;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tampilan Awal -->
+        <div id="home-screen">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Pedesaan" class="header-image">
+            <div class="title-screen">
+                <h1>Post Test PKTM-1 Tomang</h1>
+            </div>
+            <button class="btn" onclick="startQuiz()">Literasi Digital</button>
+        </div>
+
+        <!-- Form Data Diri -->
+        <div id="user-info" class="question-container" style="display: none;">
+            <h2>Data Peserta</h2>
+            <div class="form-group">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" required>
+            </div>
+            <div class="form-group">
+                <label for="kelompok">Kelompok:</label>
+                <input type="text" id="kelompok" required>
+            </div>
+            <button class="btn" onclick="startQuestions()">Mulai Kuis</button>
+        </div>
+
+        <!-- Pertanyaan 1 -->
+        <div id="question-1" class="question-container">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Orang menggunakan gadget" class="question-image">
+            <div class="question">1. Berapa rata-rata waktu yang dihabiskan warganet Indonesia untuk online setiap harinya?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q1" value="A"> A. 5 jam 20 menit</label>
+                <label class="option"><input type="radio" name="q1" value="B"> B. 6 jam 10 menit</label>
+                <label class="option"><input type="radio" name="q1" value="C"> C. 7 jam 38 menit</label>
+                <label class="option"><input type="radio" name="q1" value="D"> D. 8 jam 45 menit</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="nextQuestion(2)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 2 -->
+        <div id="question-2" class="question-container">
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Orang membaca buku" class="question-image">
+            <div class="question">2. Menurut UNESCO, berapa persen masyarakat Indonesia yang memiliki kebiasaan membaca teratur?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q2" value="A"> A. 10%</label>
+                <label class="option"><input type="radio" name="q2" value="B"> B. 1%</label>
+                <label class="option"><input type="radio" name="q2" value="C"> C. 0,1%</label>
+                <label class="option"><input type="radio" name="q2" value="D"> D. 0,001%</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(1)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(3)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 3 -->
+        <div id="question-3" class="question-container">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Hoax dan informasi digital" class="question-image">
+            <div class="question">3. Apa tantangan terbesar dalam era digital menurut materi tersebut?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q3" value="A"> A. Kurangnya media cetak</label>
+                <label class="option"><input type="radio" name="q3" value="B"> B. Sulitnya akses internet</label>
+                <label class="option"><input type="radio" name="q3" value="C"> C. Informasi melimpah, hoax, dan gangguan digital</label>
+                <label class="option"><input type="radio" name="q3" value="D"> D. Harga kuota internet mahal</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(2)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(4)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 4 -->
+        <div id="question-4" class="question-container">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f8e1c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Otak lelah" class="question-image">
+            <div class="question">4. Apa yang membuat otak mudah lelah di era digital?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q4" value="A"> A. Terlalu banyak mendengar yappingan</label>
+                <label class="option"><input type="radio" name="q4" value="B"> B. Informasi yang terlalu sedikit</label>
+                <label class="option"><input type="radio" name="q4" value="C"> C. Terlalu banyak informasi yang masuk</label>
+                <label class="option"><input type="radio" name="q4" value="D"> D. Tidak cukup konten visual</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(3)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(5)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 5 -->
+        <div id="question-5" class="question-container">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Membaca menarik" class="question-image">
+            <div class="question">5. Apa salah satu cara agar membaca jadi lebih menarik?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q5" value="A"> A. Fokus hanya pada buku pelajaran</label>
+                <label class="option"><input type="radio" name="q5" value="B"> B. Hindari diskusi dengan teman</label>
+                <label class="option"><input type="radio" name="q5" value="C"> C. Cari topik yang disukai seperti fashion, coding, atau komik</label>
+                <label class="option"><input type="radio" name="q5" value="D"> D. Hanya membaca berita politik</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(4)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(6)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 6 -->
+        <div id="question-6" class="question-container">
+            <img src="https://images.unsplash.com/photo-1581094794329-c811329a7274?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Informasi digital" class="question-image">
+            <div class="question">6. Apa yang harus dilakukan sebelum membagikan informasi digital?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q6" value="A"> A. Share secepatnya</label>
+                <label class="option"><input type="radio" name="q6" value="B"> B. Cek kebenaran informasi terlebih dahulu</label>
+                <label class="option"><input type="radio" name="q6" value="C"> C. Tambahkan opini pribadi</label>
+                <label class="option"><input type="radio" name="q6" value="D"> D. Edit informasi agar lebih menarik</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(5)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(7)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 7 -->
+        <div id="question-7" class="question-container">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Pengecekan fakta" class="question-image">
+            <div class="question">7. Apa contoh situs pengecekan fakta yang disebutkan dalam materi?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q7" value="A"> A. Wikipedia</label>
+                <label class="option"><input type="radio" name="q7" value="B"> B. Google</label>
+                <label class="option"><input type="radio" name="q7" value="C"> C. Turnbackhoax.id</label>
+                <label class="option"><input type="radio" name="q7" value="D"> D. Youtube</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(6)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(8)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 8 -->
+        <div id="question-8" class="question-container">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Informasi digital" class="question-image">
+            <div class="question">8. Mengapa penting mengetahui kapan suatu informasi diunggah?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q8" value="A"> A. Agar bisa segera dibagikan</label>
+                <label class="option"><input type="radio" name="q8" value="B"> B. Informasi lama bisa menjadi hoaks baru</label>
+                <label class="option"><input type="radio" name="q8" value="C"> C. Untuk mengetahui penulisnya</label>
+                <label class="option"><input type="radio" name="q8" value="D"> D. Supaya bisa diedit lebih dulu</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(7)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(9)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 9 -->
+        <div id="question-9" class="question-container">
+            <img src="https://images.unsplash.com/photo-1581094794329-c811329a7274?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Ragu informasi" class="question-image">
+            <div class="question">9. Apa yang dilakukan jika ragu dengan suatu informasi?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q9" value="A"> A. Langsung sebarkan</label>
+                <label class="option"><input type="radio" name="q9" value="B"> B. Tahan jempol, jangan asal share</label>
+                <label class="option"><input type="radio" name="q9" value="C"> C. Minta orang lain menyebarkannya</label>
+                <label class="option"><input type="radio" name="q9" value="D"> D. Tanya Panitia</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(8)">Sebelumnya</button>
+                <button class="btn nav-btn" onclick="nextQuestion(10)">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Pertanyaan 10 -->
+        <div id="question-10" class="question-container">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Membaca" class="question-image">
+            <div class="question">10. Membaca bukan soal format, tapi soal apa?</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q10" value="A"> A. Panjang bacaan</label>
+                <label class="option"><input type="radio" name="q10" value="B"> B. Teknologi</label>
+                <label class="option"><input type="radio" name="q10" value="C"> C. Isi dan rasa ingin tahu</label>
+                <label class="option"><input type="radio" name="q10" value="D"> D. Harga bacaan</label>
+            </div>
+            <div class="navigation">
+                <button class="btn nav-btn" onclick="prevQuestion(9)">Kembali</button>
+                <button class="btn nav-btn" onclick="submitQuiz()">Kirim</button>
+            </div>
+        </div>
+
+        <!-- Tampilan Terima Kasih -->
+        <div id="thank-you" class="thank-you">
+            Terima kasih telah menjawab!
+        </div>
+    </div>
+
+    <script>
+        // Jawaban yang benar
+        const correctAnswers = {
+            q1: "C",
+            q2: "D",
+            q3: "C",
+            q4: "C",
+            q5: "C",
+            q6: "B",
+            q7: "C",
+            q8: "B",
+            q9: "B",
+            q10: "C"
+        };
+
+        // Fungsi untuk memulai kuis
+        function startQuiz() {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('user-info').style.display = 'block';
+        }
+
+        // Fungsi untuk memulai pertanyaan
+        function startQuestions() {
+            const nama = document.getElementById('nama').value;
+            const kelompok = document.getElementById('kelompok').value;
+            
+            if (nama && kelompok) {
+                document.getElementById('user-info').style.display = 'none';
+                document.getElementById('question-1').style.display = 'block';
+            } else {
+                alert('Harap isi nama lengkap dan kelompok terlebih dahulu!');
+            }
+        }
+
+        // Fungsi untuk pindah ke pertanyaan berikutnya
+        function nextQuestion(next) {
+            document.querySelectorAll('.question-container').forEach(q => {
+                q.style.display = 'none';
+            });
+            document.getElementById('question-' + next).style.display = 'block';
+        }
+
+        // Fungsi untuk kembali ke pertanyaan sebelumnya
+        function prevQuestion(prev) {
+            document.querySelectorAll('.question-container').forEach(q => {
+                q.style.display = 'none';
+            });
+            document.getElementById('question-' + prev).style.display = 'block';
+        }
+
+        // Fungsi untuk mengirim jawaban
+        function submitQuiz() {
+            let score = 0;
+            
+            // Hitung skor
+            for (let i = 1; i <= 10; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption && selectedOption.value === correctAnswers[`q${i}`]) {
+                    score += 10;
+                }
+            }
+            
+            // Ambil data user
+            const nama = document.getElementById('nama').value;
+            const kelompok = document.getElementById('kelompok').value;
+            
+            // Sembunyikan pertanyaan terakhir
+            document.getElementById('question-10').style.display = 'none';
+            
+            // Tampilkan pesan terima kasih
+            document.getElementById('thank-you').style.display = 'block';
+            
+            // Kirim data ke Formspree
+            const formData = new FormData();
+            formData.append('Nama', nama);
+            formData.append('Kelompok', kelompok);
+            formData.append('Skor', score);
+            
+            for (let i = 1; i <= 10; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                formData.append(`Pertanyaan ${i}`, selectedOption ? selectedOption.value : 'Tidak dijawab');
+            }
+            
+            fetch('https://formspree.io/f/xrbkkepz', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
